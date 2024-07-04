@@ -8,7 +8,7 @@ from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap
 from admin import setup_admin
-from models import db, User, Personajes
+from models import db, User, Personajes, Vehicles, Planets
 #from models import Person
 
 app = Flask(__name__)
@@ -60,13 +60,56 @@ def get_personajes():
     personajes_serialized = list(map(lambda item:item.serialize(), personajes))
     print(personajes_serialized)
     
-
     response_body = {
         "msg": "ok",
         "data": personajes_serialized,
     }
 
     return jsonify(response_body), 200
+
+
+@app.route('/vehicles', methods=['GET'])
+def get_vehicles():
+
+    vehicles = Vehicles.query.all()
+    vehicles_serialized = list(map(lambda item:item.serialize(), vehicles))
+    print(vehicles_serialized)
+    
+
+    response_body = {
+        "msg": "ok",
+        "data": vehicles_serialized,
+    }
+
+    return jsonify(response_body), 200
+
+
+
+
+
+
+@app.route('/planets', methods=['GET'])
+def get_planets():
+
+    planets = Planets.query.all()
+    planets_serialized = list(map(lambda item:item.serialize(), planets))
+    print(planets_serialized)
+    
+
+    response_body = {
+        "msg": "ok",
+        "data": planets_serialized,
+    }
+
+    return jsonify(response_body), 200
+
+
+
+
+
+
+
+
 
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
